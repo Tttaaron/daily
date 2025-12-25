@@ -5,32 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>分类统计 - 每日记录</title>
+    <!-- 引入 Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #F2F2F7;
+            /* 现代配色方案 */
+            --bg-color: #F5F5F7;
             --card-bg: #FFFFFF;
             --primary: #007AFF;
+            --primary-light: rgba(0, 122, 255, 0.1);
             --danger: #FF3B30;
+            --danger-light: rgba(255, 59, 48, 0.12);
             --success: #34C759;
+            --success-light: rgba(52, 199, 89, 0.12);
             --text-main: #1C1C1E;
             --text-sub: #8E8E93;
+            --separator: #E5E5EA;
             --radius-l: 20px;
             --radius-m: 12px;
-            --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+            /* 统一字体 */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            --font-mono: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-color);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+            background: var(--bg-color);
+            font-family: var(--font-main);
             color: var(--text-main);
             min-height: 100vh;
             padding-bottom: 40px;
+            line-height: 1.5;
         }
 
         .nav-bar {
@@ -78,15 +94,22 @@
         .card {
             background: var(--card-bg);
             border-radius: var(--radius-l);
-            padding: 20px;
+            padding: 24px;
             margin-bottom: 20px;
             box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
         }
 
         .card-title {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 16px;
+            letter-spacing: -0.3px;
         }
 
         .tabs {
@@ -175,9 +198,10 @@
         }
 
         .stat-amount {
-            font-family: monospace;
+            font-family: var(--font-mono);
             font-weight: 600;
             font-size: 16px;
+            letter-spacing: -0.5px;
         }
 
         .stat-amount.inc {
@@ -185,32 +209,38 @@
         }
 
         .stat-amount.exp {
-            color: var(--text-main);
+            color: var(--danger);
         }
 
         .total-row {
             display: flex;
             justify-content: space-between;
-            padding: 16px;
-            background: var(--bg-color);
-            border-radius: 12px;
-            margin-top: 16px;
+            align-items: center;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 14px;
+            margin-top: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .total-label {
             color: var(--text-sub);
             font-size: 14px;
+            font-weight: 500;
         }
 
         .total-value {
-            font-size: 20px;
+            font-family: var(--font-mono);
+            font-size: 22px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .empty {
             text-align: center;
-            padding: 40px;
+            padding: 50px 20px;
             color: var(--text-sub);
+            font-size: 15px;
         }
 
         .stat-item {
@@ -283,8 +313,10 @@
         }
 
         .detail-amount {
-            font-family: monospace;
+            font-family: var(--font-mono);
             font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.3px;
         }
 
         .detail-amount.inc {
