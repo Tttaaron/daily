@@ -13,7 +13,11 @@
         :root {
             /* 现代配色方案 */
             --bg-color: #F5F5F7;
-            --card-bg: #FFFFFF;
+            /* 渐变粉背景 */
+            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            /* 毛玻璃卡片背景 */
+            --card-bg: rgba(255, 255, 255, 0.65);
+
             --primary: #007AFF;
             --primary-light: rgba(0, 122, 255, 0.1);
             --danger: #FF3B30;
@@ -23,14 +27,29 @@
             --text-main: #1C1C1E;
             --text-sub: #8E8E93;
             --separator: #E5E5EA;
-            --radius-l: 20px;
-            --radius-m: 12px;
-            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --radius-l: 24px;
+            --radius-m: 14px;
+            --shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --shadow-hover: 0 12px 40px rgba(31, 38, 135, 0.15);
 
             /* 统一字体 */
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
             --font-mono: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+        }
+
+        /* 动态背景动画 */
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         * {
@@ -41,7 +60,12 @@
         }
 
         body {
-            background: var(--bg-color);
+            /* 多色渐变 */
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #a18cd1, #fbc2eb);
+            background-size: 400% 400%;
+            animation: gradientBG 15s linear infinite;
+            background-attachment: fixed;
+
             font-family: var(--font-main);
             color: var(--text-main);
             min-height: 100vh;
@@ -53,13 +77,13 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
         }
 
         .nav-title {
@@ -93,6 +117,10 @@
 
         .card {
             background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+
             border-radius: var(--radius-l);
             padding: 24px;
             margin-bottom: 20px;
@@ -123,16 +151,18 @@
             padding: 10px;
             text-align: center;
             border-radius: 10px;
-            background: #E5E5EA;
+            background: rgba(255, 255, 255, 0.4);
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .tab.active {
             background: var(--primary);
             color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
         }
 
         .controls {
@@ -145,9 +175,10 @@
             flex: 1;
             padding: 10px;
             border-radius: 10px;
-            border: none;
-            background: #E5E5EA;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.4);
             font-size: 14px;
+            backdrop-filter: blur(10px);
         }
 
         .stat-item {
@@ -217,10 +248,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 18px 20px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: rgba(248, 249, 250, 0.5);
             border-radius: 14px;
             margin-top: 20px;
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .total-label {
@@ -249,7 +280,7 @@
         }
 
         .stat-item:hover {
-            background: rgba(0, 122, 255, 0.05);
+            background: rgba(255, 255, 255, 0.4);
             margin: 0 -10px;
             padding-left: 10px;
             padding-right: 10px;
@@ -271,7 +302,7 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
-            background: var(--bg-color);
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             margin: 0 0 10px 0;
         }
@@ -286,10 +317,11 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 12px;
-            background: white;
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 8px;
             margin-bottom: 6px;
             font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .detail-item:last-child {
