@@ -309,6 +309,29 @@ app.get('/api/category-stats', (req, res) => {
     });
 });
 
+// 分类详情 API - 获取指定分类的所有交易，按金额从大到小排序
+app.get('/api/category-details', (req, res) => {
+    const { year, month, category, type, userId } = req.query;
+    const uid = userId || 1;
+
+    let datePattern = `${year}%`;
+    if (month) {
+        datePattern = `${year}-${month.padStart(2, '0')}%`;
+    }
+
+    const sql = `
+        SELECT id, type, category, description, amount, created_at
+        FROM transactions 
+        WHERE created_at LIKE ? AND user_id = ? AND category = ? AND type = ?
+        ORDER BY amount DESC
+    `;
+
+    db.query(sql, [datePattern, uid, category, type], (err, results) => {
+        if (err) return res.status(500).send(err);
+        res.json(results);
+    });
+});
+
 
 // Export CSV (按日期范围)
 app.get('/api/export', (req, res) => {
